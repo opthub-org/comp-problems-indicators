@@ -8,8 +8,9 @@ from typing import cast
 
 import click
 import numpy as np
+from jsonschema import validate
 
-from problem_opt_benchmarks.utils.validation import parse_optima, parse_variable
+from problem_opt_benchmarks.sphere.schema import OPTIMA_SCHEMA, VARIABLE_1D_SCHEMA, VARIABLE_ND_SCHEMA
 
 LOGGER = logging.getLogger(__name__)
 
@@ -50,19 +51,29 @@ def main(optima: str, log_level: str) -> None:
 
     try:
         # Validate the input
-        LOGGER.info("Parsing the input...")
-        parsed_optima = parse_optima(optima)
-        decision_dim = len(parsed_optima[0])
-        parsed_variable = parse_variable(input(), decision_dim)
-        LOGGER.info("...Parsed.")
+        LOGGER.info("Validating the input...")
+        opt = json.loads(optima)
+        validate(instance=opt, schema=json.loads(OPTIMA_SCHEMA))
 
-        LOGGER.debug("variable: %s", parsed_variable)
-        LOGGER.debug("optima: %s", parsed_optima)
+        decision_dim = len(opt[0])
+        variable = json.loads(input())
+
+        if decision_dim == 1:
+            combined = {
+                "anyOf": [json.loads(VARIABLE_1D_SCHEMA), json.loads(VARIABLE_ND_SCHEMA.format(items=1))],
+            }
+            validate(instance=variable, schema=combined)
+        else:
+            validate(instance=variable, schema=json.loads(VARIABLE_ND_SCHEMA.format(items=decision_dim)))
+        LOGGER.info("...Validated.")
+
+        LOGGER.debug("variable: %s", variable)
+        LOGGER.debug("optima: %s", opt)
         LOGGER.debug("decision_dim: %s", decision_dim)
 
         # Evaluate variable
         LOGGER.info("Evaluating the variable...")
-        objective = sphere(parsed_variable, parsed_optima)
+        objective = sphere(variable, opt)
         LOGGER.info("...Evaluated.")
 
         LOGGER.debug("objective: %s", objective)

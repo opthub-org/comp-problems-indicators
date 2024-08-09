@@ -15,20 +15,20 @@ from problem_opt_benchmarks.sphere.schema import OPTIMA_SCHEMA, VARIABLE_1D_SCHE
 LOGGER = logging.getLogger(__name__)
 
 
-def sphere(variable: list[float], optimal: list[list[float]]) -> list[float]:
-    """Calculate the sphere function value.
+def sphere(var: list[float], opt: list[list[float]]) -> list[float]:
+    """Calculate the objective value of the sphere function.
 
     Args:
-        variable (list[float]): decision variable
-        optimal (list[list[float]]): optimal value
+        var (list[float]): decision variable
+        opt (list[list[float]]): optima of the sphere function
 
     Returns:
         list[float]: objective value
     """
-    variable_arr = np.array(variable, dtype=float)
-    optima_arr = np.array(optimal, dtype=float)
-    eval_arr = np.sum((variable_arr - optima_arr) ** 2, axis=1)
-    return cast(list[float], eval_arr.tolist())
+    var_arr = np.array(var, dtype=float)
+    opt_arr = np.array(opt, dtype=float)
+    obj_arr = np.sum((var_arr - opt_arr) ** 2, axis=1)
+    return cast(list[float], obj_arr.tolist())
 
 
 @click.command(help="Sphere function minimization problem.")
@@ -37,7 +37,7 @@ def sphere(variable: list[float], optimal: list[list[float]]) -> list[float]:
     "--optima",
     type=str,
     envvar="SPHERE_OPTIMA",
-    help="Optimal value for the sphere function.",
+    help="Optima of the sphere function.",
 )
 @click.option(
     "--log-level",
@@ -46,7 +46,7 @@ def sphere(variable: list[float], optimal: list[list[float]]) -> list[float]:
     help="Log level.",
 )
 def main(optima: str, log_level: str) -> None:
-    """Evaluate a given solution on a multi-objective unconstrained sphere problem."""
+    """Evaluate the given solution on the sphere function minimization problem."""
     logging.basicConfig(level=log_level)
 
     try:
@@ -56,24 +56,24 @@ def main(optima: str, log_level: str) -> None:
         validate(instance=opt, schema=json.loads(OPTIMA_SCHEMA))
 
         decision_dim = len(opt[0])
-        variable = json.loads(input())
+        var = json.loads(input())
 
         if decision_dim == 1:
             combined = {
                 "anyOf": [json.loads(VARIABLE_1D_SCHEMA), json.loads(VARIABLE_ND_SCHEMA.format(items=1))],
             }
-            validate(instance=variable, schema=combined)
+            validate(instance=var, schema=combined)
         else:
-            validate(instance=variable, schema=json.loads(VARIABLE_ND_SCHEMA.format(items=decision_dim)))
+            validate(instance=var, schema=json.loads(VARIABLE_ND_SCHEMA.format(items=decision_dim)))
         LOGGER.info("...Validated.")
 
-        LOGGER.debug("variable: %s", variable)
+        LOGGER.debug("variable: %s", var)
         LOGGER.debug("optima: %s", opt)
         LOGGER.debug("decision_dim: %s", decision_dim)
 
         # Evaluate variable
         LOGGER.info("Evaluating the variable...")
-        objective = sphere(variable, opt)
+        objective = sphere(var, opt)
         LOGGER.info("...Evaluated.")
 
         LOGGER.debug("objective: %s", objective)

@@ -1,4 +1,4 @@
-"""This module implements tests for the schema of the sphere problem."""
+"""This module implements tests for the schema of the sphere function problem."""
 
 import json
 import logging

@@ -1,4 +1,4 @@
-"""This file defines the schema for the sphere problem."""
+"""This file defines the schema for the sphere function problem."""
 
 # Schema to validate the optima of the sphere function
 OPTIMA_SCHEMA = """{

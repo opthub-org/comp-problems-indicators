@@ -1,0 +1,90 @@
+[project]
+version = "0.1.0"
+name = "problem-opt-benchmarks"
+description = "Benchmark problems."
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+keywords = ["problem", "opthub"]
+authors = [
+  {email = "dev@opthub.ai", name = "Opthub Inc."}
+]
+maintainers = [
+  {email = "dev@opthub.ai", name = "Opthub Inc."}
+]
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+dependencies = [
+    "python >= 3.10",
+    "docker >= 7.1.0",
+    "click >= 8.1.7",
+    "numpy >= 1.26.4",
+    "PyYAML >= 6.0",
+    "jsonschema >= 4.23.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/opthub-org/problem-opt-benchmarks"
+Documentation = "https://github.com/opthub-org/problem-opt-benchmarks"
+Repository = "https://github.com/opthub-org/problem-opt-benchmarks"
+
+[tool.poetry]
+version = "0.0.0" # using poetry-dynamic-versioning
+name = "problem-opt-benchmarks"
+description = "Benchmark problems."
+authors = ["Opthub Inc. <dev@opthub.ai>"]
+readme = "README.md"
+license = "MIT"
+homepage = "https://github.com/opthub-org/problem-opt-benchmarks"
+repository = "https://github.com/opthub-org/problem-opt-benchmarks"
+documentation = "https://github.com/opthub-org/problem-opt-benchmarks"
+keywords = ["problem"]
+
+[tool.poetry-dynamic-versioning]
+enable = true
+format-jinja = "{% if distance == 0 %}{{ base }}{% else %}{{ base }}.post{{ distance }}{% endif %}"
+
+[tool.poetry.dependencies]
+python = ">=3.10, <4.0"
+docker = "^7.1.0"
+click = "^8.1.7"
+numpy = "^1.26.4"
+PyYAML = "^6.0"
+jsonschema = "^4.23.0"
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.3.3"
+mypy = "^1.9.0"
+pytest = "^8.1.1"
+types-PyYAML = "^6.0"
+types-jsonschema = "^4.23.0"
+opthub_runner = "^0.1.1"
+
+[tool.ruff]
+target-version = "py312"
+line-length = 120
+lint.select = ["ALL"]
+lint.ignore = [
+    "ANN101",   # Don't require type hints for self.
+    "D104",     # Don't require docstrings for public packages.
+    "RET504",   # Allow assignment before return
+    "FBT001",   # Allow bool type positional arguments
+    "TD002",    # Allow unassigned todos
+    "TD003",    # Allow todos without issue
+    "TRY301",   # Allow abstract `raise` to an inner function
+    "DTZ005",   # Allow timezone naive datetime
+    "BLE001",   # Allow builtin exceptions
+]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[build-system]
+requires = ["poetry-core>=1.0.0", "poetry-dynamic-versioning"]
+build-backend = "poetry_dynamic_versioning.backend"
+

@@ -27,11 +27,14 @@
   "mypy.configFile": "mypy.ini",
 
   // Spell check setting
-  "cSpell.userWords": ["opthub", "hypervolume"],
   "cSpell.words": [
+    "opthub",
+    "hypervolume",
     "aiohttp",
     "boto",
-    "botocore"
+    "botocore",
+    "jsonschema",
+    "dtype"
   ],
 
   // Format setting

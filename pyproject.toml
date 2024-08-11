@@ -1,6 +1,6 @@
 [project]
 version = "0.1.0"
-name = "problem-opt-benchmarks"
+name = "problem_opt_benchmarks"
 description = "Benchmark problems."
 readme = "README.md"
 requires-python = ">=3.10"
@@ -35,7 +35,7 @@ Repository = "https://github.com/opthub-org/problem-opt-benchmarks"
 
 [tool.poetry]
 version = "0.0.0" # using poetry-dynamic-versioning
-name = "problem-opt-benchmarks"
+name = "problem_opt_benchmarks"
 description = "Benchmark problems."
 authors = ["Opthub Inc. <dev@opthub.ai>"]
 readme = "README.md"

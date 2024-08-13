@@ -1,9 +1,5 @@
 FROM python:3.12.1-slim
 
-ARG BENCHMARK_NAME
-
-RUN echo "BENCHMARK_NAME is set to ${BENCHMARK_NAME}"
-
 # 必要なパッケージのインストールとキャッシュのクリア
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
@@ -27,10 +23,14 @@ COPY pyproject.toml poetry.lock* ./
 # アプリケーションコードをコピー
 COPY . /usr/src/app
 
-ENV BENCHMARK_NAME=${BENCHMARK_NAME}
-
 # 依存関係のインストール
 RUN poetry install
 
+ARG IMAGE_TYPE
+ARG BENCHMARK_NAME
+
+RUN echo "BENCHMARK_NAME is set to ${BENCHMARK_NAME}"
+ENV BENCHMARK_NAME=${BENCHMARK_NAME}
+
 # エントリーポイントの設定
-CMD ["sh", "-c", "poetry run python ./problem_opt_benchmarks/$BENCHMARK_NAME/main.py"]
+CMD ["sh", "-c", "poetry run python ./opthub_$IMAGE_TYPE/$BENCHMARK_NAME/main.py"]

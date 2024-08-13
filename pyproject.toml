@@ -1,6 +1,6 @@
 [project]
 version = "0.1.0"
-name = "problem_opt_benchmarks"
+name = "opthub_problems_indicators"
 description = "Benchmark problems."
 readme = "README.md"
 requires-python = ">=3.10"
@@ -29,20 +29,20 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/opthub-org/problem-opt-benchmarks"
-Documentation = "https://github.com/opthub-org/problem-opt-benchmarks"
-Repository = "https://github.com/opthub-org/problem-opt-benchmarks"
+Homepage = "https://github.com/opthub-org/opthub-problems-indicators"
+Documentation = "https://github.com/opthub-org/opthub-problems-indicators"
+Repository = "https://github.com/opthub-org/opthub-problems-indicators"
 
 [tool.poetry]
 version = "0.0.0" # using poetry-dynamic-versioning
-name = "problem_opt_benchmarks"
+name = "opthub_problems_indicators"
 description = "Benchmark problems."
 authors = ["Opthub Inc. <dev@opthub.ai>"]
 readme = "README.md"
 license = "MIT"
-homepage = "https://github.com/opthub-org/problem-opt-benchmarks"
-repository = "https://github.com/opthub-org/problem-opt-benchmarks"
-documentation = "https://github.com/opthub-org/problem-opt-benchmarks"
+homepage = "https://github.com/opthub-org/opthub-problems-indicators"
+repository = "https://github.com/opthub-org/opthub-problems-indicators"
+documentation = "https://github.com/opthub-org/opthub-problems-indicators"
 keywords = ["problem"]
 
 [tool.poetry-dynamic-versioning]

@@ -1,27 +1,19 @@
-"""Test for problem_benchmarks/sphere/sphere.py."""
+"""Test for sphere main."""
 
 import json
 import logging
-import subprocess
 
 from opthub_runner.evaluator import Evaluator  # type: ignore[import]
+
+from tests.utils.docker import build_image
 
 EPS = 1e-6
 LOGGER = logging.getLogger(__name__)
 
 
-def build_image() -> None:
-    """Build the image for the sphere function."""
-    func = "sphere"
-    subprocess.run(["make", f"build-{func}"], check=True)  # Build the image
-    subprocess.run(["docker", "image", "prune", "-f"], check=True)  # Delete <none> images
-
-
 def test_sphere_sofo_dim2() -> None:
     """Test sphere function with single objective function optimization (SOFO) and decision dimension 2."""
-    build_image()
-    func = "sphere"
-    image_name = "opthub/problem-" + func + ":latest"
+    image_name = build_image("problem", "sphere")
 
     # Initialize the evaluator
     environment: dict[str, str] = {"SPHERE_OPTIMA": json.dumps([[1, 1]])}
@@ -95,9 +87,8 @@ def test_sphere_sofo_dim2() -> None:
 
 def test_sphere_sofo_dim1() -> None:
     """Test sphere function with single objective function optimization (SOFO) and decision dimension 1."""
-    build_image()
-    func = "sphere"
-    image_name = "opthub/problem-" + func + ":latest"
+    build_image("problem", "sphere")
+    image_name = "opthub/problem-sphere:latest"
 
     # Initialize the evaluator
     environment: dict[str, str] = {"SPHERE_OPTIMA": json.dumps([[1]])}
@@ -141,9 +132,7 @@ def test_sphere_sofo_dim1() -> None:
 
 def test_sphere_mofo_dim2() -> None:
     """Test sphere function with multi objective function optimization (MOFO) and decision dimension 2."""
-    build_image()
-    func = "sphere"
-    image_name = "opthub/problem-" + func + ":latest"
+    image_name = build_image("problem", "sphere")
 
     # Initialize the evaluator
     environment: dict[str, str] = {"SPHERE_OPTIMA": json.dumps([[1, 1], [2, 2]])}
@@ -184,9 +173,7 @@ def test_sphere_mofo_dim2() -> None:
 
 def test_sphere_mofo_dim1() -> None:
     """Test sphere function with multi objective function optimization (MOFO) and decision dimension 1."""
-    build_image()
-    func = "sphere"
-    image_name = "opthub/problem-" + func + ":latest"
+    image_name = build_image("problem", "sphere")
 
     # Initialize the evaluator
     environment: dict[str, str] = {"SPHERE_OPTIMA": json.dumps([[1], [2.5]])}

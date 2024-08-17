@@ -1,11 +1,11 @@
 [project]
 version = "0.1.0"
 name = "opthub_problems_indicators"
-description = "Benchmark problems."
+description = "Benchmark problems and indicators."
 readme = "README.md"
 requires-python = ">=3.10"
 license = {text = "MIT"}
-keywords = ["problem", "opthub"]
+keywords = ["problems", "indicators", "opthub"]
 authors = [
   {email = "dev@opthub.ai", name = "Opthub Inc."}
 ]
@@ -36,8 +36,12 @@ Repository = "https://github.com/opthub-org/opthub-problems-indicators"
 [tool.poetry]
 version = "0.0.0" # using poetry-dynamic-versioning
 name = "opthub_problems_indicators"
-description = "Benchmark problems."
+description = "Benchmark problems and indicators."
 authors = ["Opthub Inc. <dev@opthub.ai>"]
+packages = [
+  {include = "opthub_problems"},
+  {include = "opthub_indicators"},
+]
 readme = "README.md"
 license = "MIT"
 homepage = "https://github.com/opthub-org/opthub-problems-indicators"

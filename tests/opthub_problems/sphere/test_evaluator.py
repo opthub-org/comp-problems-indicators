@@ -1,5 +1,7 @@
 """Test for sphere evaluator."""
 
+import numpy as np
+
 from opthub_problems.sphere.evaluator import evaluate
 
 EPS = 1e-6
@@ -33,6 +35,15 @@ def test_single_objective_2d() -> None:
         raise TypeError(msg)
     if abs(objective - 0) > EPS:
         msg = f"Expected 0, but got {objective}"
+        raise ValueError(msg)
+
+    result = evaluate([-float("inf"), 0], optima)
+    objective = result["objective"]
+    if isinstance(objective, list):
+        msg = "Expected float, but got list"
+        raise TypeError(msg)
+    if not np.isinf(objective):
+        msg = f"Expected inf, but got {objective}"
         raise ValueError(msg)
 
 

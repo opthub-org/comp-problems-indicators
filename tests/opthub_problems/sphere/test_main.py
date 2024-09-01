@@ -1,18 +1,17 @@
 """Test for sphere main."""
 
 import json
-import logging
 
+import pytest
 from opthub_runner.evaluator import Evaluator  # type: ignore[import]
 
 from tests.utils.docker import build_image
 
 EPS = 1e-6
-LOGGER = logging.getLogger(__name__)
 
 
-def test_sphere_sofo_dim2() -> None:
-    """Test sphere function with single objective function optimization (SOFO) and decision dimension 2."""
+def test_sphere_single_objective_2d() -> None:
+    """Test sphere function with single objective function optimization and decision dimension 2."""
     image_name = build_image("problem", "sphere")
 
     # Initialize the evaluator
@@ -34,61 +33,29 @@ def test_sphere_sofo_dim2() -> None:
         raise ValueError(msg)
 
     # Case 3 - Invalid Solution ([1.5])
-    try:
+    with pytest.raises(RuntimeError):
         result = evaluator.run([1.5])
 
-        msg = f"Expected RuntimeError, but got {result}"
-        raise ValueError(msg)
-
-    except RuntimeError as e:
-        msg = f"Test for [1.5]: {e}"
-        LOGGER.info(msg)
-
     # Case 4 - Invalid Solution ([1.5, 2.5, 3.5])
-    try:
+    with pytest.raises(RuntimeError):
         result = evaluator.run([1.5, 2.5, 3.5])
 
-        msg = f"Expected RuntimeError, but got {result}"
-        raise ValueError(msg)
-    except RuntimeError as e:
-        msg = f"Test for [1.5, 2.5, 3.5]: {e}"
-        LOGGER.info(msg)
-
     # Case 5 - Invalid Solution (["A", 1])
-    try:
+    with pytest.raises(RuntimeError):
         result = evaluator.run(["A", 1])
 
-        msg = f"Expected RuntimeError, but got {result}"
-        raise ValueError(msg)
-    except RuntimeError as e:
-        msg = f"Test for ['A', 1]: {e}"
-        LOGGER.info(msg)
-
     # Case 6 - Invalid Solution ([[1, 2]])
-    try:
+    with pytest.raises(RuntimeError):
         result = evaluator.run([[1, 2]])
 
-        msg = f"Expected RuntimeError, but got {result}"
-        raise ValueError(msg)
-    except RuntimeError as e:
-        msg = f"Test for [[1, 2]]: {e}"
-        LOGGER.info(msg)
-
     # Case 7 - Invalid Solution (1.5)
-    try:
+    with pytest.raises(RuntimeError):
         result = evaluator.run(1.5)
 
-        msg = f"Expected RuntimeError, but got {result}"
-        raise ValueError(msg)
-    except RuntimeError as e:
-        msg = f"Test for 1.5: {e}"
-        LOGGER.info(msg)
 
-
-def test_sphere_sofo_dim1() -> None:
-    """Test sphere function with single objective function optimization (SOFO) and decision dimension 1."""
-    build_image("problem", "sphere")
-    image_name = "opthub/problem-sphere:latest"
+def test_sphere_single_objective_1d() -> None:
+    """Test sphere function with single objective function optimization and decision dimension 1."""
+    image_name = build_image("problem", "sphere")
 
     # Initialize the evaluator
     environment: dict[str, str] = {"SPHERE_OPTIMA": json.dumps([[1]])}
@@ -109,29 +76,16 @@ def test_sphere_sofo_dim1() -> None:
         raise ValueError(msg)
 
     # Case 3 - Invalid Solution ([1.5, 2.5])
-    try:
+    with pytest.raises(RuntimeError):
         result = evaluator.run([1.5, 2.5])
 
-        msg = f"Expected RuntimeError, but got {result}"
-        raise ValueError(msg)
-
-    except RuntimeError as e:
-        msg = f"Test for [1.5, 2.5]: {e}"
-        LOGGER.info(msg)
-
     # Case 4 - Invalid Solution (["A"])
-    try:
+    with pytest.raises(RuntimeError):
         result = evaluator.run(["A"])
 
-        msg = f"Expected RuntimeError, but got {result}"
-        raise ValueError(msg)
-    except RuntimeError as e:
-        msg = f"Test for ['A']: {e}"
-        LOGGER.info(msg)
 
-
-def test_sphere_mofo_dim2() -> None:
-    """Test sphere function with multi objective function optimization (MOFO) and decision dimension 2."""
+def test_sphere_multi_objective_dim2() -> None:
+    """Test sphere function with multi objective function optimization with decision dimension 2."""
     image_name = build_image("problem", "sphere")
 
     # Initialize the evaluator
@@ -151,28 +105,16 @@ def test_sphere_mofo_dim2() -> None:
         raise ValueError(msg)
 
     # Case 2 - Invalid Solution ([1.5, "A"])
-    try:
+    with pytest.raises(RuntimeError):
         result = evaluator.run([1.5, "A"])
 
-        msg = f"Expected RuntimeError, but got {result}"
-        raise ValueError(msg)
-    except RuntimeError as e:
-        msg = f"Test for [1.5, 'A']: {e}"
-        LOGGER.info(msg)
-
     # Case 3 - Invalid Solution ([1.5])
-    try:
+    with pytest.raises(RuntimeError):
         result = evaluator.run([1.5])
 
-        msg = f"Expected RuntimeError, but got {result}"
-        raise ValueError(msg)
-    except RuntimeError as e:
-        msg = f"Test for [1.5]: {e}"
-        LOGGER.info(msg)
 
-
-def test_sphere_mofo_dim1() -> None:
-    """Test sphere function with multi objective function optimization (MOFO) and decision dimension 1."""
+def test_sphere_multi_objective_dim1() -> None:
+    """Test sphere function with multi objective function optimization with decision dimension 1."""
     image_name = build_image("problem", "sphere")
 
     # Initialize the evaluator

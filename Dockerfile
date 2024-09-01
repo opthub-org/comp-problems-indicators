@@ -31,6 +31,7 @@ ARG BENCHMARK_NAME
 
 RUN echo "BENCHMARK_NAME is set to ${BENCHMARK_NAME}"
 ENV BENCHMARK_NAME=${BENCHMARK_NAME}
+ENV IMAGE_TYPE=${IMAGE_TYPE}
 
 # エントリーポイントの設定
-CMD ["sh", "-c", "poetry run python ./opthub_$IMAGE_TYPE/$BENCHMARK_NAME/main.py"]
+CMD ["sh", "-c", "cd /usr/src/app && poetry run python ./opthub_$IMAGE_TYPE/$BENCHMARK_NAME/main.py"]

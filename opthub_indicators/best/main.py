@@ -56,7 +56,7 @@ def main(float_max: float, log_level: str) -> None:
     except Exception as e:
         LOGGER.exception(format_exc())
         LOGGER.info("Outputting the result...")
-        sys.stdout.write(json.dumps({"objective": None, "error": str(e)}))
+        sys.stdout.write(json.dumps({"score": None, "error": str(e)}))
         LOGGER.info("...Outputted.")
 
 

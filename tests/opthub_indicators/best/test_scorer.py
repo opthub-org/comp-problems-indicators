@@ -20,8 +20,8 @@ def test_updating_score() -> None:
         {"score": 0.5},
     ]
     score = calculate_score(WORST_SCORE, solution_to_score, solutions_scored)
-    if abs(score["value"] - 0.3) > EPS:
-        msg = f"Expected 0.3, but got {score['value']}"
+    if abs(score["score"] - 0.3) > EPS:
+        msg = f"Expected 0.3, but got {score['score']}"
         raise ValueError(msg)
 
 
@@ -33,8 +33,8 @@ def test_not_updating_score() -> None:
         {"score": 0.5},
     ]
     score = calculate_score(WORST_SCORE, solution_to_score, solutions_scored)
-    if abs(score["value"] - 0.5) > EPS:
-        msg = f"Expected 0.5, but got {score['value']}"
+    if abs(score["score"] - 0.5) > EPS:
+        msg = f"Expected 0.5, but got {score['score']}"
         raise ValueError(msg)
 
 
@@ -43,8 +43,8 @@ def test_with_empty_scored() -> None:
     solution_to_score: SolutionToScore = {"objective": 0.3, "feasible": True}
     solutions_scored: list[SolutionScored] = []
     score = calculate_score(WORST_SCORE, solution_to_score, solutions_scored)
-    if abs(score["value"] - 0.3) > EPS:
-        msg = f"Expected 0.3, but got {score['value']}"
+    if abs(score["score"] - 0.3) > EPS:
+        msg = f"Expected 0.3, but got {score['score']}"
         raise ValueError(msg)
 
 
@@ -53,6 +53,6 @@ def test_with_only_infeasible() -> None:
     solution_to_score: SolutionToScore = {"objective": 0.3, "feasible": False}
     solutions_scored: list[SolutionScored] = []
     score = calculate_score(WORST_SCORE, solution_to_score, solutions_scored)
-    if abs(score["value"] - WORST_SCORE) > EPS:
-        msg = f"Expected {WORST_SCORE}, but got {score['value']}"
+    if abs(score["score"] - WORST_SCORE) > EPS:
+        msg = f"Expected {WORST_SCORE}, but got {score['score']}"
         raise ValueError(msg)

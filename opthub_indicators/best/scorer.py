@@ -8,7 +8,7 @@ from opthub_indicators.best.validator import SolutionScored, SolutionToScore
 class Score(TypedDict):
     """The type of the score."""
 
-    value: float
+    score: float
 
 
 def calculate_score(
@@ -35,4 +35,4 @@ def calculate_score(
     else:
         score = solution_scored[-1]["score"] if solution_scored else float_max
 
-    return {"value": score}
+    return {"score": score}

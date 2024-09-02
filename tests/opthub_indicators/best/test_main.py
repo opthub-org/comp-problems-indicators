@@ -19,6 +19,6 @@ def test_main() -> None:
     if std_out is None:
         msg = "The stdout is None."
         raise ValueError(msg)
-    if abs(std_out["value"] - 0.2) > EPS:
-        msg = f"Expected 0.2, but got {std_out['value']}"
+    if abs(std_out["score"] - 0.2) > EPS:
+        msg = f"Expected 0.2, but got {std_out['score']}"
         raise ValueError(msg)

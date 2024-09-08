@@ -1,0 +1,26 @@
+name: Push Docker Images
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Docker Login
+      run: |
+        echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+
+    - name: Push problem-sphere Docker Image
+      run: |
+        make problem NAME=sphere
+
+    - name: Push indicator-best Docker Image
+      run: |
+        make indicator NAME=best

@@ -20,6 +20,7 @@ LOGGER = logging.getLogger(__name__)
     "--float-max",
     type=float,
     default=float_info.max,
+    envvar="FLOAT_MAX",
     help="Worst value.",
 )
 @click.option(

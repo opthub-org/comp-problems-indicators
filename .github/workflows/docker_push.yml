@@ -19,8 +19,10 @@ jobs:
 
     - name: Push problem-sphere Docker Image
       run: |
-        make problem NAME=sphere
+        make build-problem NAME=sphere
+        make push-problem NAME=sphere
 
     - name: Push indicator-best Docker Image
       run: |
-        make indicator NAME=best
+        make build-indicator NAME=best
+        make push-indicator NAME=best

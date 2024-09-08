@@ -4,7 +4,7 @@ problem: test-problem build-problem push-problem
 
 test-problem:
 	echo Testing problem $(NAME)...
-	pytest tests/problems/$(NAME)/
+	pytest tests/opthub_problems/$(NAME)/
 
 build-problem:
 	echo Building problem $(NAME)...
@@ -18,7 +18,7 @@ indicator: test-indicator-$(NAME) build-indicator-$(NAME) push-indicator-$(NAME)
 
 test-indicator:
 	echo Testing indicator $(NAME)...
-	pytest tests/indicators/$(NAME)/
+	pytest tests/opthub_indicators/$(NAME)/
 
 build-indicator:
 	echo Building indicator $(NAME)...

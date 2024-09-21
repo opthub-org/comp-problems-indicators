@@ -60,6 +60,7 @@ click = "^8.1.7"
 numpy = "^1.26.4"
 PyYAML = "^6.0"
 jsonschema = "^4.23.0"
+matplotlib = "^3.9.2"
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.3.3"

@@ -49,7 +49,7 @@ def main(optima: str, log_level: str) -> None:
 
         # Evaluate variable
         LOGGER.info("Evaluating the variable...")
-        result = evaluate(validated_variable)
+        result = evaluate(validated_variable, validated_optima)
         LOGGER.info("...Evaluated.")
 
         LOGGER.debug("result: %s", result)

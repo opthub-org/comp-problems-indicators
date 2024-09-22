@@ -9,14 +9,14 @@ from opthub_problems.rosenbrock.evaluator import evaluate
 def visualization() -> None:
     """Visualize the rosenbrock function."""
     file = "opthub_problems/rosenbrock/rosenbrock.jpg"
+    opt = [[1.0, 1.0]]
 
     x = np.linspace(-5, 5, 200)
     y = np.linspace(-5, 5, 200)
     x, y = np.meshgrid(x, y)
 
     var_list = np.column_stack([x.ravel(), y.ravel()]).tolist()
-
-    z = np.array([evaluate(var)["objective"] for var in var_list])
+    z = np.array([evaluate(var, opt)["objective"] for var in var_list])
     z = z.reshape(x.shape)
 
     fig = plt.figure(figsize=(10, 5))

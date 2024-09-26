@@ -26,11 +26,13 @@ dependencies = [
     "numpy >= 1.26.4",
     "PyYAML >= 6.0",
     "jsonschema >= 4.23.0",
+    "pymoo >= 0.6.1.3",
+    "matplotlib >= 3.9.2"
 ]
 
 [project.urls]
 Homepage = "https://github.com/opthub-org/opthub-problems-indicators"
-Documentation = "https://github.com/opthub-org/opthub-problems-indicators"
+Documentation = "https://github.com/opthub-orSg/opthub-problems-indicators"
 Repository = "https://github.com/opthub-org/opthub-problems-indicators"
 
 [tool.poetry]
@@ -61,6 +63,7 @@ numpy = "^1.26.4"
 PyYAML = "^6.0"
 jsonschema = "^4.23.0"
 matplotlib = "^3.9.2"
+pymoo = "^0.6.1.3"
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.3.3"

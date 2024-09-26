@@ -28,13 +28,14 @@
 
   // Spell check setting
   "cSpell.words": [
-    "opthub",
-    "hypervolume",
     "aiohttp",
     "boto",
     "botocore",
+    "dtype",
+    "hypervolume",
     "jsonschema",
-    "dtype"
+    "opthub",
+    "pymoo"
   ],
 
   // Format setting

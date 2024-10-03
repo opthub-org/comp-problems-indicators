@@ -8,7 +8,10 @@
 
 | ID     | Source Code | Docker Image |
 | ------ | ----------- | ------------ |
-| [sphere](https://opthub.ai/problems/sphere) | [opthub_problems/sphere](./opthub_problems/sphere/) | [opthub/problem-sphere](https://hub.docker.com/r/opthub/problem-sphere)
+| [sphere](https://opthub.ai/problems/sphere) | [opthub_problems/sphere](./opthub_problems/sphere/) | [opthub/problem-sphere](https://hub.docker.com/r/opthub/problem-sphere) |
+| [elliptic](https://opthub.ai/problems/elliptic) | [opthub_problems/elliptic](./opthub_problems/elliptic/) | [opthub/problem-elliptic](https://hub.docker.com/r/opthub/problem-elliptic) |
+| [rastrigin](https://opthub.ai/problems/rastrigin) | [opthub_problems/rastrigin](./opthub_problems/rastrigin/) | [opthub/problem-rastrigin](https://hub.docker.com/r/opthub/problem-rastrigin) |
+| [rosenbrock](https://opthub.ai/problems/rosenbrock) | [opthub_problems/rosenbrock](./opthub_problems/rosenbrock/) | [opthub/problem-rosenbrock](https://hub.docker.com/r/opthub/problem-rosenbrock) |
 
 ## 指標
 
@@ -16,6 +19,8 @@
 
 | ID     | Source Code | Docker Image |
 | ------ | ----------- | ------------ |
+| [best](https://opthub.ai/indicators/best) | [opthub_indicators/best](./opthub_indicators/best/) | [opthub/indicator-best](https://hub.docker.com/r/opthub/indicator-best) |
+| [hypervolume](https://opthub.ai/indicators/hypervolume) | [opthub_indicators/hypervolume](./opthub_indicators/hypervolume/) | [opthub/indicator-hypervolume](https://hub.docker.com/r/opthub/indicator-hypervolume) |
 
 ## 開発者の方へ
 

@@ -22,7 +22,27 @@ jobs:
         make build-problem NAME=sphere
         make push-problem NAME=sphere
 
+    - name: Push problem-elliptic Docker Image
+      run: |
+        make build-problem NAME=elliptic
+        make push-problem NAME=elliptic
+
+    - name: Push problem-rastrigin Docker Image
+      run: |
+        make build-problem NAME=rastrigin
+        make push-problem NAME=rastrigin
+
+    - name: Push problem-rosenbrock Docker Image
+      run: |
+        make build-problem NAME=rosenbrock
+        make push-problem NAME=rosenbrock
+
     - name: Push indicator-best Docker Image
       run: |
         make build-indicator NAME=best
         make push-indicator NAME=best
+
+    - name: Push indicator-hypervolume Docker Image
+      run: |
+        make build-indicator NAME=hypervolume
+        make push-indicator NAME=hypervolume

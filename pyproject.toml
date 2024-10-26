@@ -32,7 +32,7 @@ dependencies = [
 
 [project.urls]
 Homepage = "https://github.com/opthub-org/opthub-problems-indicators"
-Documentation = "https://github.com/opthub-orSg/opthub-problems-indicators"
+Documentation = "https://github.com/opthub-org/opthub-problems-indicators"
 Repository = "https://github.com/opthub-org/opthub-problems-indicators"
 
 [tool.poetry]

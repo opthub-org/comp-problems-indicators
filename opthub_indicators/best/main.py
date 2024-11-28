@@ -2,8 +2,8 @@
 
 import json
 import logging
+import math
 import sys
-from sys import float_info
 from traceback import format_exc
 
 import click
@@ -13,13 +13,17 @@ from opthub_indicators.best.validator import validate_solution_to_score, validat
 
 LOGGER = logging.getLogger(__name__)
 
+# The maximum number that can be stored in DynamoDB
+# https://docs.aws.amazon.com/ja_jp/amazondynamodb/latest/developerguide/HowItWorks.NamingRulesDataTypes.html
+DYNAMODB_NUMBER_MAX = 1e126 - math.ulp(1e126)
+
 
 @click.command(help="The indicator to calculate the best fitness value.")
 @click.option(
     "-m",
     "--float-max",
     type=float,
-    default=float_info.max,
+    default=DYNAMODB_NUMBER_MAX,
     envvar="BEST_FLOAT_MAX",
     help="Worst value.",
 )

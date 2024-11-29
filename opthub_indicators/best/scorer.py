@@ -2,7 +2,7 @@
 
 from typing import TypedDict
 
-from opthub_indicators.best.validator import SolutionScored, SolutionToScore
+from opthub_indicators.best.validator import TrialScored, TrialToScore
 
 
 class Score(TypedDict):
@@ -13,26 +13,26 @@ class Score(TypedDict):
 
 def calculate_score(
     float_max: float,
-    solution_to_score: SolutionToScore,
-    solution_scored: list[SolutionScored],
+    trial_to_score: TrialToScore,
+    trial_scored: list[TrialScored],
 ) -> Score:
     """Calculate the score.
 
     Args:
         float_max (float): maximum float value (worst score)S
-        solution_to_score (SolutionToScore): solution to score
-        solution_scored (list[SolutionScored]): solutions scored
+        trial_to_score (TrialToScore): trial to score
+        trial_scored (list[TrialScored]): trials scored
 
     Returns:
         Score: score
     """
-    if solution_to_score["feasible"]:
-        objective = solution_to_score["objective"]
+    if trial_to_score["feasible"]:
+        objective = trial_to_score["objective"]
         if objective is None:
-            msg = "The solution is feasible, but the objective is None."
+            msg = "The trial is feasible, but the objective is None."
             raise ValueError(msg)
-        score = min(objective, solution_scored[-1]["score"]) if solution_scored else objective
+        score = min(objective, trial_scored[-1]["score"]) if trial_scored else objective
     else:
-        score = solution_scored[-1]["score"] if solution_scored else float_max
+        score = trial_scored[-1]["score"] if trial_scored else float_max
 
     return {"score": score}

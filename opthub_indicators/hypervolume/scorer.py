@@ -6,7 +6,7 @@ import numpy as np
 from pymoo.indicators.hv import HV  # type: ignore[import]
 from pymoo.util.nds.non_dominated_sorting import NonDominatedSorting  # type: ignore[import]
 
-from opthub_indicators.hypervolume.validator import SolutionScored, SolutionToScore
+from opthub_indicators.hypervolume.validator import TrialScored, TrialToScore
 
 
 class Score(TypedDict):
@@ -17,24 +17,24 @@ class Score(TypedDict):
 
 def calculate_score(
     ref_point: list[float] | None,
-    solution_to_score: SolutionToScore,
-    solutions_scored: list[SolutionScored],
+    trial_to_score: TrialToScore,
+    trials_scored: list[TrialScored],
 ) -> Score:
     """Calculate the score.
 
     Args:
         ref_point (Sequence[float | int] | None): reference point
-        solution_to_score (SolutionToScore): solution to score
-        solutions_scored (list[SolutionScored]): solutions scored
+        trial_to_score (TrialToScore): trial to score
+        trials_scored (list[TrialScored]): trials scored
 
     Returns:
         Score: score
     """
     score = 0
-    feasible_objectives = [solution["objective"] for solution in solutions_scored if solution["feasible"]]
+    feasible_objectives = [trial["objective"] for trial in trials_scored if trial["feasible"]]
 
-    if solution_to_score["feasible"]:
-        feasible_objectives.append(solution_to_score["objective"])
+    if trial_to_score["feasible"]:
+        feasible_objectives.append(trial_to_score["objective"])
 
     if len(feasible_objectives) == 0:
         return {"score": 0}

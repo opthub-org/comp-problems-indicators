@@ -10,8 +10,8 @@ import click
 from opthub_indicators.hypervolume.scorer import calculate_score
 from opthub_indicators.hypervolume.validator import (
     validate_ref_point,
-    validate_solution_to_score,
-    validate_solutions_scored,
+    validate_trial_to_score,
+    validate_trials_scored,
 )
 
 LOGGER = logging.getLogger(__name__)
@@ -40,20 +40,20 @@ def main(ref_point: str, log_level: str) -> None:
         # Validate the input
         LOGGER.info("Validating the input...")
 
-        solution_to_score = json.loads(input())
-        solutions_scored = json.loads(input())
+        trial_to_score = json.loads(input())
+        trials_scored = json.loads(input())
         validated_ref_point = validate_ref_point(json.loads(ref_point) if ref_point is not None else None)
-        validated_solution_to_score = validate_solution_to_score(solution_to_score)
+        validated_trial_to_score = validate_trial_to_score(trial_to_score)
 
-        validated_solutions_scored = validate_solutions_scored(solutions_scored)
+        validated_trials_scored = validate_trials_scored(trials_scored)
         LOGGER.info("...Validated.")
         LOGGER.debug("ref_point: %s", validated_ref_point)
-        LOGGER.debug("solution_to_score: %s", validated_solution_to_score)
-        LOGGER.debug("solutions_scored: %s", validated_solutions_scored)
+        LOGGER.debug("trial_to_score: %s", validated_trial_to_score)
+        LOGGER.debug("trials_scored: %s", validated_trials_scored)
 
         # Calculate the score
         LOGGER.info("Calculating the score...")
-        score = calculate_score(validated_ref_point, validated_solution_to_score, validated_solutions_scored)
+        score = calculate_score(validated_ref_point, validated_trial_to_score, validated_trials_scored)
         LOGGER.info("...Calculated.")
         LOGGER.debug("score: %s", score)
 

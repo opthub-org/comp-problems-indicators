@@ -6,10 +6,10 @@ from typing import Any, TypedDict
 import numpy as np
 from jsonschema import validate
 
-# Schema to validate the evaluation of the solution to score (used in "current")
+# Schema to validate the evaluation of the trial to score (used in "current")
 SOLUTION_TO_SCORE_JSONSCHEMA = """{
     "$schema": "http://json-schema.org/draft-07/schema#",
-    "title": "Solution to score",
+    "title": "Trial to score",
     "type": "object",
     "properties": {
         "objective": {
@@ -28,10 +28,10 @@ SOLUTION_TO_SCORE_JSONSCHEMA = """{
     "required": ["objective", "feasible", "constraint"]
 }"""
 
-# Schema to validate the evaluation and score of already scored solution (used in "history")
+# Schema to validate the evaluation and score of already scored trial (used in "history")
 SOLUTIONS_SCORED_JSONSCHEMA = """{
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "Solutions scored",
+  "title": "Trials scored",
   "type": "array",
   "items": {
     "type": "object",
@@ -45,59 +45,59 @@ SOLUTIONS_SCORED_JSONSCHEMA = """{
 }"""
 
 
-class SolutionToScore(TypedDict):
-    """The type of the solution to score."""
+class TrialToScore(TypedDict):
+    """The type of the trial to score."""
 
     objective: float | None
     feasible: bool | None
 
 
-class SolutionScored(TypedDict):
-    """The type of the solution scored."""
+class TrialScored(TypedDict):
+    """The type of the trial scored."""
 
     score: float
 
 
-def validate_solution_to_score(solution: dict[str, Any]) -> SolutionToScore:
-    """Validate the solution to score.
+def validate_trial_to_score(trial: dict[str, Any]) -> TrialToScore:
+    """Validate the trial to score.
 
     Args:
-        solution (dict[str, Any]): solution to score
+        trial (dict[str, Any]): trial to score
 
     Returns:
-        SolutionToScore: validated solution to score
+        TrialToScore: validated trial to score
     """
-    validate(instance=solution, schema=json.loads(SOLUTION_TO_SCORE_JSONSCHEMA))
-    feasible = solution["feasible"] if solution["feasible"] is not None else is_feasible(solution)
+    validate(instance=trial, schema=json.loads(SOLUTION_TO_SCORE_JSONSCHEMA))
+    feasible = trial["feasible"] if trial["feasible"] is not None else is_feasible(trial)
 
-    if feasible and solution["objective"] is None:
-        msg = "The solution is feasible, but the objective is None."
+    if feasible and trial["objective"] is None:
+        msg = "The trial is feasible, but the objective is None."
         raise ValueError(msg)
 
-    return {"objective": solution["objective"], "feasible": feasible}
+    return {"objective": trial["objective"], "feasible": feasible}
 
 
-def validate_solutions_scored(solutions: list[dict[str, Any]]) -> list[SolutionScored]:
-    """Validate the solutions scored.
-
-    Args:
-        solutions (list[dict[str, Any]]): solutions scored
-    Returns:
-        list[SolutionScored]: validated solutions scored
-    """
-    validate(instance=solutions, schema=json.loads(SOLUTIONS_SCORED_JSONSCHEMA))
-    return [{"score": solution["score"]} for solution in solutions]
-
-
-def is_feasible(solution: dict[str, Any]) -> bool:
-    """Test a solution is feasible or not.
+def validate_trials_scored(trials: list[dict[str, Any]]) -> list[TrialScored]:
+    """Validate the trials scored.
 
     Args:
-        solution (dict[str, Any]): solution to test
+        trials (list[dict[str, Any]]): trials scored
+    Returns:
+        list[TrialScored]: validated trials scored
+    """
+    validate(instance=trials, schema=json.loads(SOLUTIONS_SCORED_JSONSCHEMA))
+    return [{"score": trial["score"]} for trial in trials]
+
+
+def is_feasible(trial: dict[str, Any]) -> bool:
+    """Test a trial is feasible or not.
+
+    Args:
+        trial (dict[str, Any]): trial to test
 
     Returns:
-        bool: True if the solution is feasible, False otherwise
+        bool: True if the trial is feasible, False otherwise
     """
-    objective = solution.get("objective")
-    constraint = solution.get("constraint")
+    objective = trial.get("objective")
+    constraint = trial.get("constraint")
     return isinstance(objective, float | int) and bool(constraint is None or np.all(np.array(constraint) <= 0.0))

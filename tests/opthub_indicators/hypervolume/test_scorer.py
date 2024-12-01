@@ -55,3 +55,15 @@ def test_2d_with_infeasible() -> None:
     if abs(score["score"] - 1.0) > EPS:
         msg = f"Expected score: 1.0, but got: {score['score']}"
         raise ValueError(msg)
+
+
+def test_minus_2d_ref_point() -> None:
+    """Test the calculation of the hypervolume scorer with 2D and an infeasible trial."""
+    ref_point = [0.0, 0.0]
+    trial_to_score: TrialToScore = {"objective": [-1, -1], "feasible": True}
+    trials_scored: list[TrialScored] = []
+    score = calculate_score(ref_point, trial_to_score, trials_scored)
+
+    if abs(score["score"] - 1.0) > EPS:
+        msg = f"Expected score: 1.0, but got: {score['score']}"
+        raise ValueError(msg)

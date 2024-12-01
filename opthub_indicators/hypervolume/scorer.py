@@ -39,7 +39,7 @@ def calculate_score(
     if len(feasible_objectives) == 0:
         return {"score": 0}
 
-    if len(feasible_objectives) == 1:
+    if len(feasible_objectives) == 1 and ref_point is None:
         return {"score": 0}
 
     feasible_objectives_array = np.array(feasible_objectives)

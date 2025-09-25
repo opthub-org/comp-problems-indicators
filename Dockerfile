@@ -8,7 +8,7 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 # Poetryのインストール
-RUN pip install poetry
+RUN pip install "poetry==1.8.3"
 
 # Poetryのパス設定
 ENV PATH="/root/.local/bin:${PATH}"
@@ -35,3 +35,5 @@ ENV IMAGE_TYPE=${IMAGE_TYPE}
 
 # エントリーポイントの設定
 CMD ["sh", "-c", "cd /usr/src/app && poetry run python ./opthub_$IMAGE_TYPE/$BENCHMARK_NAME/main.py"]
+
+

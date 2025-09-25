@@ -16,7 +16,7 @@ SOLUTION_TO_SCORE_JSONSCHEMA = """{
         "objective": {
             "oneOf": [
                 {"type": "null"},
-                {"type": "array", "minItems": 2, "items": {"type": "number"}}
+                {"type": "array", "minItems": 2, "items": {"type": ["number", "null"]}}
             ]
         },
         "constraint": {
@@ -44,7 +44,7 @@ SOLUTIONS_SCORED_JSONSCHEMA = """{
             "objective": {
                 "oneOf": [
                     {"type": "null"},
-                    {"type": "array", "minItems": 2, "items": {"type": "number"}}
+                    {"type": "array", "minItems": 2, "items": {"type": ["number", "null"]}}
                 ]
             },
             "constraint": {
@@ -76,14 +76,14 @@ REF_POINT_JSONSCHEMA = """{
 class TrialToScore(TypedDict):
     """The type of the trial to score."""
 
-    objective: list[float] | None
+    objective: list[float | None] | None
     feasible: bool | None
 
 
 class TrialScored(TypedDict):
     """The type of the trial scored."""
 
-    objective: list[float] | None
+    objective: list[float | None] | None
     feasible: bool | None
 
 
@@ -101,6 +101,10 @@ def validate_trial_to_score(trial: dict[str, Any]) -> TrialToScore:
 
     if feasible and trial["objective"] is None:
         msg = "The trial is feasible, but the objective is None."
+        raise ValidationError(msg)
+
+    if feasible and any(o is None for o in trial["objective"]):
+        msg = "The trial is feasible, but the objective contains None values."
         raise ValidationError(msg)
 
     return {"objective": trial["objective"], "feasible": feasible}
